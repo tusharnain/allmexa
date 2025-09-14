@@ -22,7 +22,7 @@ final class Settings
 
         'registraton_same_phone_limit' => 99,
 
-        'registration_captcha' => true,
+        'registration_captcha' => false,
         'login_captcha' => false,
 
         'email_login_credentials_after_registration' => true,
