@@ -268,7 +268,7 @@ class Index extends ParentController
 
         $stat = model(IncomeStatModel::class)->getAllStatFromUserIdPk($user_id_pk);
 
-        dd($stat);
+
         $data = array_merge($data, [
             // [
             //     'title' => 'Investment',
