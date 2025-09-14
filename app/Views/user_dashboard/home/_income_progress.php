@@ -26,13 +26,13 @@
             role="progressbar" style="width: <?= $receivedPercentage ?>%;" aria-valuenow="<?= $receivedPercentage ?>"
             aria-valuemin="0" aria-valuemax="100">
             <span class="txt-primary fs-6 progress-label">
-                <?= f_amount(_c($received), isUser: true) ?>
+                <?= f_amount($received) ?>
             </span>
         </div>
     </div>
 
     <div class="text-end mt-3">
-        <?= f_amount(_c($received), isUser: true) . '/' . f_amount(_c($max), isUser: true) ?>
+        <?= f_amount($received) . '/' . f_amount(_c($max), isUser: true) ?>
         (<?= $multiplier ?>X)
     </div>
 
