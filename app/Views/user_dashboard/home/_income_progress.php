@@ -25,9 +25,9 @@
         <div class="progress-bar-animated small-progressbar bg-primary rounded-pill progress-bar-striped"
             role="progressbar" style="width: <?= $receivedPercentage ?>%;" aria-valuenow="<?= $receivedPercentage ?>"
             aria-valuemin="0" aria-valuemax="100">
-            <span class="txt-primary fs-6 progress-label">
+            <!-- <span class="txt-primary fs-6 progress-label">
                 <?= f_amount($received) ?>
-            </span>
+            </span> -->
         </div>
     </div>
 
