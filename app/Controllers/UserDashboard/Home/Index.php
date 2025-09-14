@@ -268,6 +268,7 @@ class Index extends ParentController
 
         $stat = model(IncomeStatModel::class)->getAllStatFromUserIdPk($user_id_pk);
 
+        dd($stat);
         $data = array_merge($data, [
             // [
             //     'title' => 'Investment',
@@ -286,11 +287,6 @@ class Index extends ParentController
             [
                 'title' => 'Self ROI',
                 'value' => f_amount($stat?->roi ?? 0),
-                'icon' => 'fa-solid fa-dollar'
-            ],
-            [
-                'title' => 'Direct Level Income',
-                'value' => f_amount($stat?->level_income ?? 0),
                 'icon' => 'fa-solid fa-dollar'
             ],
             // [
