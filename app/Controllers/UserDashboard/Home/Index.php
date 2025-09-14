@@ -13,6 +13,7 @@ use App\Services\WalletService;
 use App\Twebsol\Plans;
 use CodeIgniter\HTTP\Response;
 use App\Enums\WalletTransactionCategory as TxnCat;
+use App\Models\IncomeStatModel;
 use App\Models\WalletTransactionModel;
 
 class Index extends ParentController
@@ -265,6 +266,7 @@ class Index extends ParentController
                 array_push($data, ['title' => $wallet['label'], 'value' => $wallet['fAmount'], 'url' => str_replace('___', $wallet['slug'], $walletUrl), 'icon' => 'fa-solid fa-wallet']);
         }
 
+        $stat = model(IncomeStatModel::class)->getAllStatFromUserIdPk($user_id_pk);
 
         $data = array_merge($data, [
             // [
@@ -276,18 +278,33 @@ class Index extends ParentController
                 'value' => $this->userModel->getUserOpenLevel($user_id_pk, $user_id),
                 'icon' => 'fa-solid fa-layer-group'
             ],
+            [
+                'title' => 'Direct Level Income',
+                'value' => f_amount($stat?->level_income ?? 0),
+                'icon' => 'fa-solid fa-dollar'
+            ],
+            [
+                'title' => 'Self ROI',
+                'value' => f_amount($stat?->roi ?? 0),
+                'icon' => 'fa-solid fa-dollar'
+            ],
+            [
+                'title' => 'Direct Level Income',
+                'value' => f_amount($stat?->level_income ?? 0),
+                'icon' => 'fa-solid fa-dollar'
+            ],
             // [
             //     'title' => 'Total Profit Earning',
             //     'value' => f_amount(_c($incomeStats->{UserIncomeStats::TOTAL_EARNING}), shortForm: true, symbol: '$')
             // ],
-            [
-                'title' => 'Total Pending Deposit',
-                'value' => f_amount(_c($incomeStats->{UserIncomeStats::TOTAL_PENDING_DEPOSIT}), shortForm: true, symbol: '$'),
-            ],
-            [
-                'title' => 'Total Complete Deposit',
-                'value' => f_amount(_c($incomeStats->{UserIncomeStats::TOTAL_COMPLETE_DEPOSIT}), shortForm: true, symbol: '$'),
-            ],
+            // [
+            //     'title' => 'Total Pending Deposit',
+            //     'value' => f_amount(_c($incomeStats->{UserIncomeStats::TOTAL_PENDING_DEPOSIT}), shortForm: true, symbol: '$'),
+            // ],
+            // [
+            //     'title' => 'Total Complete Deposit',
+            //     'value' => f_amount(_c($incomeStats->{UserIncomeStats::TOTAL_COMPLETE_DEPOSIT}), shortForm: true, symbol: '$'),
+            // ],
             // [
             //     'title' => 'Total Pending Withdrawal',
             //     'value' => f_amount(_c($incomeStats->{UserIncomeStats::TOTAL_PENDING_WITHDRAWAL}), shortForm: true, isUser: true),
