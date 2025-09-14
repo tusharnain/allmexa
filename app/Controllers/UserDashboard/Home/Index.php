@@ -183,6 +183,12 @@ class Index extends ParentController
         $received = $this->userTransactionModel->selectSum('amount')
             ->where('user_id', $userIdPk)
             ->where('type', 'credit')
+            ->where('wallet', 'income')
+            ->whereIn('category', [
+                TxnCat::ROI,
+                TxnCat::SPONSOR_LEVEL_INCOME,
+                TxnCat::SPONSOR_ROI_LEVEL_INCOME
+            ])
             ->get()->getRow()->amount ?? 0;
 
 
