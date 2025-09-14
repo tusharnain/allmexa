@@ -244,7 +244,7 @@ class UserIncomeService
         ])
             ->where('users.status', 1)
             ->where('users.activated_at IS NOT NULL')
-            // ->where('users.activated_at <=', $oneDayAgo)
+            ->where('users.activated_at <=', $oneDayAgo)
             ->join('wallets', 'users.id = wallets.user_id', 'LEFT')
             ->get()
             ->getResult();

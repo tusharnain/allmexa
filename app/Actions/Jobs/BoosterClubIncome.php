@@ -10,7 +10,7 @@ use App\Models\WalletModel;
 class BoosterClubIncome
 {
     private $db;
-    private const DIRECT_NEEDED = 2;
+    private const DIRECT_NEEDED = 4;
     public const STRUCTURE = [
         1 => 1,
         2 => 0.80,
