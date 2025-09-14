@@ -1,0 +1,9 @@
+.avatar {
+  background: #ffffff no-repeat center/cover;
+}
+
+@media only screen and (max-width: 768px) {
+  .page-content .container-fluid .container-fluid {
+    padding: 0 !important;
+  }
+}

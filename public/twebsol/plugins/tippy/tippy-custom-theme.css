@@ -1,0 +1,59 @@
+.tippy-box[data-theme~="custom-theme"] {
+  background-color: white;
+  color: black;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.tippy-box[data-theme~="custom-theme"][data-placement^="top"]
+  > .tippy-arrow::before {
+  border-top-color: white;
+}
+
+.tippy-box[data-theme~="custom-theme"][data-placement^="bottom"]
+  > .tippy-arrow::before {
+  border-bottom-color: white;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.tippy-box[data-theme~="custom-theme"][data-placement^="left"]
+  > .tippy-arrow::before {
+  border-left-color: white;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.tippy-box[data-theme~="custom-theme"][data-placement^="right"]
+  > .tippy-arrow::before {
+  border-right-color: white;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+/* For Dark Mode */
+
+body.dark-mode .tippy-box[data-theme~="custom-theme"] {
+  background-color: #2a2a4a;
+  color: white;
+}
+
+body.dark-mode
+  .tippy-box[data-theme~="custom-theme"][data-placement^="top"]
+  > .tippy-arrow::before {
+  border-top-color: #2a2a4a;
+}
+
+body.dark-mode
+  .tippy-box[data-theme~="custom-theme"][data-placement^="bottom"]
+  > .tippy-arrow::before {
+  border-bottom-color: #2a2a4a;
+}
+
+body.dark-mode
+  .tippy-box[data-theme~="custom-theme"][data-placement^="left"]
+  > .tippy-arrow::before {
+  border-left-color: #2a2a4a;
+}
+
+body.dark-mode
+  .tippy-box[data-theme~="custom-theme"][data-placement^="right"]
+  > .tippy-arrow::before {
+  border-right-color: #2a2a4a;
+}
