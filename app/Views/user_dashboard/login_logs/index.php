@@ -20,27 +20,21 @@ $widgets = [
         <div class="col-12">
             <div class="row">
                 <?php foreach ($widgets as $title => $value): ?>
-                    <div class="col-xl-4">
-                        <div class="card small-widget">
-                            <div class="card-body primary">
-                                <span class="f-light">
-                                    <h6>
-                                        <?= $title ?>
-                                    </h6>
+                    <div class="col-xl-3 col-lg-4">
+                        <div class="card shining-card">
+                            <div class="card-body">
+                                <span class="fs-5 me-2">
+                                    <?= $title ?>
                                 </span>
-                                <div class="d-flex align-items-end gap-1">
-                                    <h4 class="mt-2">
+                                <div class="pt-3">
+                                    <h4 class="counter" style="visibility: visible;">
                                         <?= $value ?>
                                     </h4>
-                                </div>
-                                <div class="bg-gradient">
-                                    <svg class="stroke-icon svg-fill">
-                                        <use href="<?= user_asset('svg/icon-sprite.svg#stroke-user') ?>"></use>
-                                    </svg>
                                 </div>
                             </div>
                         </div>
                     </div>
+
                 <?php endforeach; ?>
             </div>
         </div>

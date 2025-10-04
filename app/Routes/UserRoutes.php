@@ -117,7 +117,7 @@ final class UserRoutes
         //     $routes->match(['get', 'post'], 'ticket-history', 'Support\TicketHistory::index', ['as' => 'user.support.ticketHistory']);
         // });
 
-        // $routes->get('login-logs', 'LoginLogs\Index::index', ['as' => 'user.loginLogs']);
+        $routes->get('login-logs', 'LoginLogs\Index::index', ['as' => 'user.loginLogs']);
 
 
         // User File Controller

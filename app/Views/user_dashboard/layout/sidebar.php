@@ -462,6 +462,13 @@
                     </ul>
                 </li>
 
+                <li class="nav-item ">
+                    <a class="nav-link " aria-current="page" href="<?= route('user.loginLogs') ?>">
+                        <i class="fa-solid fa-right-to-bracket"></i>
+                        <span class="item-name">Login Logs</span>
+                    </a>
+                </li>
+
 
             </ul>
         </div>
