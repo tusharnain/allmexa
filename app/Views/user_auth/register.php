@@ -158,7 +158,7 @@
 
 <?php $this->section('script') ?>
 
-<script src="<?= base_url('twebsol/user/registration.js') ?>?v=0.5"></script>
+<script src="<?= base_url('twebsol/user/registration.js') ?>?v=0.6"></script>
 
 <script src="<?= base_url('twebsol/plugins/html2canvas/html2canvas.min.js') ?>"></script>
 
