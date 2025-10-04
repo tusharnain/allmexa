@@ -47,7 +47,7 @@ class Register extends ParentController
         try {
             $inputs = InputService::inputRegistrationValues();
 
-            $regResult = $this->userModel->register($inputs, forOtp: true);
+            $regResult = $this->userModel->register($inputs, forOtp: false);
 
 
             // if $regResult is array, it means its validation error
@@ -55,55 +55,55 @@ class Register extends ParentController
                 return resJson(['success' => false, 'errors' => $regResult], 400);
             }
 
-            $userData = $regResult;
+            // $userData = $regResult;
 
-            unset($userData['success']);
+            // unset($userData['success']);
 
-            $otp = mt_rand(111111, 999999);
+            // $otp = mt_rand(111111, 999999);
 
-            session()->set('reg_otp_' . $userData['email'], [
-                'otp' => $otp,
-                'expire_at' => strtotime('+1 hour'),
-                'plain_password' => $inputs['password'],
-                'plain_tpin' => $inputs['tpin']
-            ]);
+            // session()->set('reg_otp_' . $userData['email'], [
+            //     'otp' => $otp,
+            //     'expire_at' => strtotime('+1 hour'),
+            //     'plain_password' => $inputs['password'],
+            //     'plain_tpin' => $inputs['tpin']
+            // ]);
 
-            UserService::sendOtp($userData['email'], $userData['full_name'], $otp);
+            // UserService::sendOtp($userData['email'], $userData['full_name'], $otp);
 
-            $otpUrl = route('confirmOtp') . '?payload=' . urlencode(simple_encrypt_array($userData));
+            // $otpUrl = route('confirmOtp') . '?payload=' . urlencode(simple_encrypt_array($userData));
 
-            return resJson(['success' => true, 'otp_url' => $otpUrl], 201);
+            // return resJson(['success' => true, 'otp_url' => $otpUrl], 201);
 
 
             /// old code
 
-            // $user = [
-            //     ...$inputs,
-            //     'user_id' => $regResult->userId,
-            //     'joining_date' => $regResult->joiningDate
-            // ];
+            $user = [
+                ...$inputs,
+                'user_id' => $regResult->userId,
+                'joining_date' => $regResult->joiningDate
+            ];
 
-            // $user['textContent'] = UserLib::getAfterRegistrationText($user);
-            // $user['textFileName'] = UserLib::getAfterRegistrationTextFileName($user);
-            // $user['imageFileName'] = UserLib::getAfterRegistrationImageFileName($user);
-
-
+            $user['textContent'] = UserLib::getAfterRegistrationText($user);
+            $user['textFileName'] = UserLib::getAfterRegistrationTextFileName($user);
+            $user['imageFileName'] = UserLib::getAfterRegistrationImageFileName($user);
 
 
-            // $rendered = view('user_auth/__post_registration', $user);
+
+
+            $rendered = view('user_auth/__post_registration', $user);
 
 
             // sending credentials on email if enabled
-            // if (_setting('email_login_credentials_after_registration')) {
-            //     UserService::emailLoginCredentials($user['email'], $user['user_id'], $user['full_name'], $user['password'], $user['tpin']);
-            // }
+            if (_setting('email_login_credentials_after_registration')) {
+                UserService::emailLoginCredentials($user['email'], $user['user_id'], $user['full_name'], $user['password'], $user['tpin']);
+            }
 
-            // $data = ['success' => true, 'html' => $rendered];
+            $data = ['success' => true, 'html' => $rendered];
 
-            // if (_setting('registration_captcha'))
-            //     $data['captchaBase64'] = $this->captchaImage(true);
+            if (_setting('registration_captcha'))
+                $data['captchaBase64'] = $this->captchaImage(true);
 
-            // return resJson($data, 201);
+            return resJson($data, 201);
 
         } catch (\Exception $e) {
 

@@ -87,7 +87,7 @@ final class UserRoutes
         $routes->group('topup', function ($routes) {
             //main topup user page
             $routes->match(['get', 'post'], 'topup-user', 'Topup\TopupUser::index', ['as' => 'user.topup.topupUser']);
-            $routes->match(['get', 'post'], 'compound', 'Topup\Compound::index', ['as' => 'user.topup.compound']);
+            // $routes->match(['get', 'post'], 'compound', 'Topup\Compound::index', ['as' => 'user.topup.compound']);
 
 
             //topup history

@@ -53,6 +53,9 @@
             border: 1px solid #313135 !important;
         }
 
+    .btn-primary {
+        background-color: #231e18 !important;
+    }
         
     </style>
 

@@ -1,7 +1,7 @@
 <aside class="sidebar sidebar-default navs-rounded ">
     <div class="sidebar-header d-flex align-items-center justify-content-start">
         <a href="<?= route('user.home') ?>" class="navbar-brand dis-none align-items-center justify-content-center">
-            <img width="100%" height="30" src="<?= base_url('images/logo.png') ?>" alt="logo">
+            <img width="100%" height="30" src="<?= base_url('images/logo.png') ?>?v=0.1" alt="logo">
             <!--<h4 class="logo-title m-0 ms-2">-->
             <!--    <?= strtoupper(data('company_name')) ?>-->
             <!--</h4>-->
@@ -445,17 +445,6 @@
                                 </i>
                                 <i class="sidenav-mini-icon"> U </i>
                                 <span class="item-name">Topup</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link " href="<?= route('user.topup.compound') ?>">
-                                <i class="icon">
-                                    <svg width="10" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <rect x="0.5" y="1" width="11" height="11" stroke="currentcolor" />
-                                    </svg>
-                                </i>
-                                <i class="sidenav-mini-icon"> U </i>
-                                <span class="item-name">Compound Invest</span>
                             </a>
                         </li>
                         <li class="nav-item">

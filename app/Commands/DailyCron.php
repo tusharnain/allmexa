@@ -81,10 +81,13 @@ class DailyCron extends BaseCommand
             (new UserIncomeService)->giveCompoundRoi();
 
             // (new DirectAndBusinessBasedSalary)->scan()->distribute(); // every 15 days
+            
+            
+            // cancelled --------
 
-            (new DailyTopupBonus)->distribute();
+            // (new DailyTopupBonus)->distribute();
 
-            (new BoosterClubIncome)->distribute();
+            // (new BoosterClubIncome)->distribute();
 
 
 

@@ -43,28 +43,6 @@ if (!($dashgrt = prefixed_cookie('dashgrt')) or !$dashgrt) {
     }
 
 
-    /* Gold Gradient Background */
-    .shining-card {
-        background: linear-gradient(90deg, #d4af37 0%, #f5d76e 50%, #d4af37 100%);
-        color: #000;
-        /* Black text for contrast */
-        border-radius: 12px;
-        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
-        border: none;
-    }
-
-    /* Optional: Add same background to all widget cards */
-    .card {
-        background: linear-gradient(90deg, #d4af37 0%, #f5d76e 50%, #d4af37 100%);
-        color: #000;
-    }
-
-    /* Optional: Make icons/text stand out */
-    .card h4,
-    .card span,
-    .card i {
-        color: #000;
-    }
 </style>
 <?php $this->endSection() ?>
 
@@ -97,16 +75,17 @@ if (!($dashgrt = prefixed_cookie('dashgrt')) or !$dashgrt) {
 
     <div class="col-12" id="earning_chart_stack"></div>
 
-    <div class="row">
-        <div class="col-md-6">
-            <?= view('user_dashboard/home/daily_deposit_bonanza.php') ?>
+    <?php if(false): ?>
+        <div class="row">
+            <div class="col-md-6">
+                <?= view('user_dashboard/home/daily_deposit_bonanza.php') ?>
+            </div>
+    
+            <div class="col-md-6">
+                <?= view('user_dashboard/home/booster_club_income.php') ?>
+            </div>
         </div>
-
-        <div class="col-md-6">
-            <?= view('user_dashboard/home/booster_club_income.php') ?>
-        </div>
-
-    </div>
+    <?php endif; ?>
     <!-- hidden html code for widget, etc -->
     <div style="display: none;">
         <div id="widget_html_container">
@@ -138,7 +117,7 @@ if (!($dashgrt = prefixed_cookie('dashgrt')) or !$dashgrt) {
                 </div>
             </div> -->
             <div id="{widget_id}" class="col-md-6 col-xl-4 col-xxl-3">
-                <div class="card shining-card">
+                <div class="card">
                     <div class="card-body">
                         <i class="widget-1-i {widget_icon} me-2"></i>
                         <!-- <img src="<?= base_url('coinex/images/coins/01.png') ?>"
@@ -231,6 +210,10 @@ if (!($dashgrt = prefixed_cookie('dashgrt')) or !$dashgrt) {
                 ...widgetOptions,
                 defaultIcon: 'fa-solid fa-users',
                 widgets: [{
+                    component: '0',
+                    label: 'Team ROI',
+                },
+                {
                     component: 'direct_team',
                     label: 'Direct Team',
                 },
@@ -253,6 +236,16 @@ if (!($dashgrt = prefixed_cookie('dashgrt')) or !$dashgrt) {
                 {
                     component: 'total_team_investment',
                     label: 'Total Team Business',
+                    icon: currencySymbol
+                },
+                {
+                    component: '0',
+                    label: 'Reaward',
+                    icon: currencySymbol
+                },
+                {
+                    component: '0',
+                    label: 'Salary',
                     icon: currencySymbol
                 }
 

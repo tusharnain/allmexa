@@ -106,9 +106,12 @@ final class AdminSidebarMenu
             ->addSubMenu("$user_label Withdrawals", route('admin.withdrawals.userWithdrawals'));
 
 
-        $this->addMenu('Wallets', icon: 'mdi mdi-wallet')
-            ->addSubMenu('Add/Deduct Wallet', route('admin.wallets.addDeduct'))
-            ->addSubMenu('Admin History', route('admin.wallets.adminHistory'));
+        if(admin_role(1)) {
+            
+            $this->addMenu('Wallets', icon: 'mdi mdi-wallet')
+                ->addSubMenu('Add/Deduct Wallet', route('admin.wallets.addDeduct'))
+                ->addSubMenu('Admin History', route('admin.wallets.adminHistory'));
+        }
 
 
         if (admin_role(1)) {

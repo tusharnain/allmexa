@@ -311,12 +311,12 @@ class UserIncomeService
             'users.sponsor_id',
             'users.status',
             'users.activated_at',
-            'wallets.compound_investment',
+            'wallets.income',
         ])
             ->where('users.status', 1)
             ->where('users.activated_at IS NOT NULL')
             // ->where('users.activated_at <=', $oneDayAgo)
-            ->where('wallets.compound_investment >', 0)
+            ->where('wallets.income >', 10)
             ->join('wallets', 'users.id = wallets.user_id', 'LEFT')
             ->get()
             ->getResult();
@@ -328,7 +328,7 @@ class UserIncomeService
 
             foreach ($users as $user) {
 
-                $balance = $user->compound_investment;
+                $balance = $user->income;
                 $txnCategory = TxnCat::COMPOUND_ROI;
 
                 if ($balance > 0) {
@@ -345,7 +345,7 @@ class UserIncomeService
                     $this->walletModel->deposit(
                         user_id_pk: $user->id,
                         amount: $amount,
-                        wallet_field: 'compound_investment',
+                        wallet_field: 'income',
                         category: $txnCategory,
                         isEarning: true,
                         details: $txnDetails

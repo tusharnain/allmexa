@@ -20,7 +20,7 @@ class UserLib
         $sponsorId = $userData['sponsor_id'];
         $fullName = $userData['full_name'];
         $email = $userData['email'];
-        $phoneNumber = $userData['phone'];
+        // $phoneNumber = $userData['phone'];
         $password = $userData['password'];
         $joiningDate = $userData['joining_date'];
 
@@ -29,7 +29,6 @@ class UserLib
         {$userIdLabel}: $userId
         {$sponsorIdLabel} : $sponsorId
         Email : $email
-        Phone Number : $phoneNumber
         Password : $password
         Joining Date : $joiningDate 
         TEXT;

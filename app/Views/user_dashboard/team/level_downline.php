@@ -16,6 +16,58 @@ $sponsorLabel = label('sponsor');
         float: right;
         text-align: right;
     }
+    /* Table base with border */
+/* Table base */
+#lv-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+    background-color: #1a1a1a; /* dark background */
+    color: #ffffff; /* white text */
+}
+
+/* Table header */
+#lv-table th {
+    background-color: #1a1a1a; /* dark header */
+    color: #ffffff;
+    font-weight: 600;
+    text-align: center;
+    padding: 0.75rem;
+    border: 1px solid #444444; /* subtle grey border */
+}
+
+/* Table body cells */
+#lv-table td {
+    text-align: center;
+    vertical-align: middle;
+    padding: 0.65rem;
+    border: 1px solid #444444; /* subtle grey border */
+}
+
+/* Striped rows (optional) */
+#lv-table tbody tr:nth-child(odd) {
+    background-color: #262626; /* slightly lighter dark */
+}
+
+/* Hover effect */
+#lv-table tbody tr:hover {
+    background-color: #333333; /* dark hover */
+}
+
+@media (max-width: 768px) {
+    .dataTables_filter {
+        width: 100% !important;
+        float: none !important;
+        text-align: left !important;
+        margin: 0 0 1rem 0; /* bottom gap */
+    }
+
+    /* Optional: make search input full width */
+    .dataTables_filter input {
+        width: 100%;
+        box-sizing: border-box;
+    }
+}
 </style>
 <?= $this->endSection(); ?>
 

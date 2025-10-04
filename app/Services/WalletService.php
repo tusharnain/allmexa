@@ -19,14 +19,12 @@ class WalletService
         1 => 'fund',
         2 => 'income',
         3 => 'investment',
-        4 => 'compound_investment',
     ];
 
     const WALLET_SLUGS = [
         1 => 'fund-wallet',
         2 => 'e-wallet',
         3 => 'investment-wallet',
-        4 => 'compound-investment-wallet',
     ];
 
     const WITHDRAW_FROM_WALLET = 'income';

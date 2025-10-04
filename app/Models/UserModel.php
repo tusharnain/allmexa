@@ -193,11 +193,11 @@ class UserModel extends ParentModel
             ->where('users.sponsor_id', $user_id_pk)
             ->where('COALESCE(investment, 0) >=', 10000)->get()->getResult();
     }
-    public function getDirectActivePaidUsersCount(int $user_id_pk): int|float
+    public function getDirectActivePaidUsersCount(int $user_id_pk, $minimumInvestment = 1): int|float
     {
         return $this->selectCount('users.id')->join('wallets', 'users.id = wallets.user_id', 'JOIN')
             ->where('users.sponsor_id', $user_id_pk)
-            ->where('investment >', 0)
+            ->where('investment >=', $minimumInvestment)
             ->get()->getRow()->id ?? 0;
     }
 
@@ -208,17 +208,17 @@ class UserModel extends ParentModel
 
     public function getTotalSelfBusiness(int $user_id_pk): float
     {
-        $data = $this->topupModel()->selectSum('plan_price')->where('user_id', $user_id_pk)->get()->getRowObject();
-        return ($data and isset($data->plan_price)) ? $data->plan_price : 0.00;
+        $data = $this->topupModel()->selectSum('amount')->where('user_id', $user_id_pk)->get()->getRowObject();
+        return ($data and isset($data->amount)) ? $data->amount : 0.00;
     }
     public function getTotalDirectBusiness(int $user_id_pk): float
     {
-        $data = $this->topupModel()->selectSum('plan_price')
+        $data = $this->topupModel()->selectSum('amount')
             ->join('users', 'users.id = topups.user_id')
             ->where('users.sponsor_id', $user_id_pk)
             ->get()->getRowObject();
 
-        return ($data and isset($data->plan_price)) ? $data->plan_price : 0.00;
+        return ($data and isset($data->amount)) ? $data->amount : 0.00;
     }
 
     // setters
@@ -438,7 +438,15 @@ class UserModel extends ParentModel
             return $MAX_LEVEL_OPEN;
         }
 
-        $count = $this->getDirectActiveReferralsCountFromUserIdPk($user_id_pk);
+
+        $directTeamBusiness = $this->getTotalDirectBusiness($user_id_pk);
+        
+        if($directTeamBusiness >= 1500) {
+            return $MAX_LEVEL_OPEN;
+        }
+        
+        
+        $count = $this->getDirectActivePaidUsersCount($user_id_pk, 50);
 
         return min($count, $MAX_LEVEL_OPEN);
     }

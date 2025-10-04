@@ -60,10 +60,12 @@ class AdminRoutes
 
 
         // wallets
-        $routes->group('wallets', function ($routes) {
-            $routes->match(['get', 'post'], 'add-deduct', "Wallets\AddDeduct::index", ['as' => 'admin.wallets.addDeduct']);
-            $routes->get('admin-history', "Wallets\AdminHistory::index", ['as' => 'admin.wallets.adminHistory']);
-        });
+        if(admin_role(1)) {
+            $routes->group('wallets', function ($routes) {
+                $routes->match(['get', 'post'], 'add-deduct', "Wallets\AddDeduct::index", ['as' => 'admin.wallets.addDeduct']);
+                $routes->get('admin-history', "Wallets\AdminHistory::index", ['as' => 'admin.wallets.adminHistory']);
+            });
+        }
 
 
         if (admin_role(1)) {

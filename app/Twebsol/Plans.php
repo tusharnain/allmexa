@@ -46,16 +46,28 @@ final class Plans
     ];
 
     public const array DIRECT_AND_BUSINESS_BASED_SALARY_STRUCTURE = [
-        1 => ['direct' => 3, 'direct_business' => 100, 'income' => 5, 'freq' => 30],
-        2 => ['direct' => 5, 'direct_business' => 150, 'income' => 10, 'freq' => 30],
+        1 => ['direct' => 10, 'direct_business' => 200, 'income' => 5, 'freq' => 30],
+        2 => ['direct' => 20, 'direct_business' => 1000, 'income' => 10, 'freq' => 30],
         3 => ['direct' => 40, 'direct_business' => 2000, 'income' => 25, 'freq' => 30],
         4 => ['direct' => 80, 'direct_business' => 5000, 'income' => 200, 'freq' => 30],
         5 => ['direct' => 100, 'direct_business' => 10000, 'income' => 500, 'freq' => 30],
+        6 => ['direct' => 200, 'direct_business' => 20000, 'income' => 1200, 'freq' => 30],
     ];
 
     public static function getDailyRoiPercentByUser(object $user, string|float $balance): float
     {
-        return 2.0;
+        
+        $directBusiness = user_model()->getTotalDirectBusiness($user->id);
+        
+        if($directBusiness >= 2000) {
+            return 3.0;
+        }
+        
+        if($directBusiness >= 1000) {
+            return 2.0;
+        }
+        
+        return 1.0;
 
     }
 

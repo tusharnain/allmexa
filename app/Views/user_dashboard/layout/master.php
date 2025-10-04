@@ -15,7 +15,7 @@
     <link rel="stylesheet" type="text/css" href="<?= base_url('twebsol/plugins/tippy/tippy-custom-theme.css') ?>">
     <link rel="stylesheet" type="text/css" href="<?= base_url('twebsol/plugins/tippy/tippy.animation.min.css') ?>">
     <link rel="stylesheet" type="text/css" href="<?= base_url('twebsol/plugins/sweetalert2/sweetalert2.min.css') ?>">
-    <link rel="stylesheet" href="<?= base_url('coinex/css/coinex.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('coinex/css/coinex.css') ?>?v=0.1">
     <link rel="stylesheet" type="text/css" href="<?= base_url('twebsol/styles/main.css') ?>">
     <link rel="stylesheet" type="text/css" href="<?= user_asset('main.css') ?>">
     <script src="<?= base_url('twebsol/scripts/head.js') ?>"></script>

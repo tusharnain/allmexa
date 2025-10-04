@@ -143,34 +143,34 @@ function registerInit(options = {}) {
           if (!isProduction) console.log(res);
 
           if (xhr.status === 201) {
-            // clearInputs(regFormSelector);
-            // refer && $("#sponsor_id").val(refer.user_id);
-            // !refer && $("#sid_alert").hide();
+            clearInputs(regFormSelector);
+            refer && $("#sponsor_id").val(refer.user_id);
+            !refer && $("#sid_alert").hide();
 
-            // sAlert("success", "Account Registered!", res.html, {
-            //   allowOutsideClick: false,
-            //   showCancelButton: true,
-            //   confirmButtonText: "Login",
-            //   cancelButtonText: "Ok",
-            //   customClass: {
-            //     popup: "post_registration_popup",
-            //   },
-            // }).then((result) => {
-            //   if (result.isConfirmed && loginPageUrl) {
-            //     window.location.href = loginPageUrl;
-            //   }
-            // });
+            sAlert("success", "Account Registered!", res.html, {
+              allowOutsideClick: false,
+              showCancelButton: true,
+              confirmButtonText: "Login",
+              cancelButtonText: "Ok",
+              customClass: {
+                popup: "post_registration_popup",
+              },
+            }).then((result) => {
+              if (result.isConfirmed && loginPageUrl) {
+                window.location.href = loginPageUrl;
+              }
+            });
 
-            // // new captcha
-            // if (registerCaptchaImageUrl && res.captchaBase64)
-            //   updateCaptcha(
-            //     "#reg_captcha_img",
-            //     `data:image/png;base64,${res.captchaBase64}`
-            //   );
+            // new captcha
+            if (registerCaptchaImageUrl && res.captchaBase64)
+              updateCaptcha(
+                "#reg_captcha_img",
+                `data:image/png;base64,${res.captchaBase64}`
+              );
 
-            if(res.otp_url) {
-              location.href = res.otp_url;
-            }
+            // if(res.otp_url) {
+            //   location.href = res.otp_url;
+            // }
           }
         },
         error: function (xhr) {

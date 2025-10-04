@@ -1,6 +1,6 @@
 <?php
 
-$sidebarMenuJson = \App\Twebsol\AdminSidebarMenu::getSideberMenuJson(cache: true);
+$sidebarMenuJson = \App\Twebsol\AdminSidebarMenu::getSideberMenuJson(cache: false);
 
 $adminName = admin('full_name');
 $dashboardUrl = route('admin.home');
