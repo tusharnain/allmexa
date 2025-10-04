@@ -10,7 +10,7 @@ class UserRewardsModel extends ParentModel
     protected $useAutoIncrement = true;
     protected $returnType = 'object';
     protected $protectFields = true;
-    protected $allowedFields = ['user_id', 'reward_id', 'active_salary', 'salary_freq'];
+    protected $allowedFields = ['user_id', 'reward_id', 'reward_type', 'details'];
 
 
     // Dates
@@ -20,33 +20,23 @@ class UserRewardsModel extends ParentModel
     protected $updatedField = 'updated_at';
 
 
-
-    public function hasUserAlreadyAchieved(int $user_id_pk, int $reward_id): bool
+    public function getAllUserRewards(int $user_id_pk, string $rewardType, string|array $columns = '*'): array
     {
-        return !!($this->select('id')->where(['user_id' => $user_id_pk, 'reward_id' => $reward_id])->first()->id ?? false);
+        return $this->select($columns)
+            ->where('user_id', $user_id_pk)
+            ->where('reward_type', $rewardType)
+            ->get()
+            ->getResult();
     }
 
-    public function getAllUserRewards(int $user_id_pk, string|array $columns = '*'): array
-    {
-        return $this->select($columns)->where('user_id', $user_id_pk)->get()->getResult();
-    }
 
-    public function giveReward(int $user_id_pk, int $rewardId)
+    public function hasUserAlreadyAchieved(int $user_id_pk, string $type, int $reward_id): bool
     {
-        $data = [
+        return !!($this->select('id')->where([
             'user_id' => $user_id_pk,
-            'reward_id' => $rewardId,
-            'active_salary' => 1
-        ];
-
-        $insertResult = $this->insert($data);
-
-        // deactivate active_salary for rest of rewards
-        $this->where('user_id', $user_id_pk)
-            ->where('reward_id !=', $rewardId)
-            ->set('active_salary', 0)
-            ->update();
-
-        return $insertResult;
+            'reward_type' => $type,
+            'reward_id' => $reward_id
+        ])
+            ->first()->id ?? false);
     }
 }

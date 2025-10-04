@@ -117,7 +117,7 @@
     <script src="<?= base_url('twebsol/scripts/user-script.js') ?>"></script>
     <script src="<?= base_url('twebsol/scripts/main.js') ?>"></script>
 
-    <script src="<?= base_url('twebsol/user/dashboard.js') ?>?v=1.6"></script>
+    <script src="<?= base_url('twebsol/user/dashboard.js') ?>?v=2"></script>
 
 
     <?= $this->renderSection('script') ?>

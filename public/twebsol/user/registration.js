@@ -50,11 +50,11 @@ function registerInit(options = {}) {
   var reg_validation_rules = {
     sponsor_id: !refer
       ? {
-          required: true,
-          alpha_num: true,
-          minlength: userIdLengths[0],
-          maxlength: userIdLengths[1],
-        }
+        required: true,
+        alpha_num: true,
+        minlength: userIdLengths[0],
+        maxlength: userIdLengths[1],
+      }
       : null,
 
     full_name: {
@@ -228,7 +228,7 @@ function registerInit(options = {}) {
       $.ajax({
         url: userNameApi,
         method: "POST",
-        data: { user_id: sid, ...csrf_data() },
+        data: { user_id: sid, purpose: 'refer', ...csrf_data() },
         beforeSend: function () {
           alertSpan.html(spinnerLabel({ type: "fa" }));
 
@@ -256,8 +256,10 @@ function registerInit(options = {}) {
 
             if (res.status === 1) {
               msg = `${sponsorIdLabel} is required!`;
-            } else {
+            } else if (res.status === 2) {
               msg = `${sponsorIdLabel} is invalid!`;
+            } else if (res.status === 4) {
+              msg = `${sponsorLabel} is not active!`;
             }
 
             hasError(msg);

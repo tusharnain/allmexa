@@ -476,7 +476,7 @@ class Dashboard {
     if (!Dashboard.dashboardApi)
       throw new error("Dashboard api has not provided!");
     const html = `<div class="card">
-  <div class="card-header py-4">
+  <div class="card-header">
       <h6>Last 7 Days Earnings</h6>
   </div>
   <div class="card-body">

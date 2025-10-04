@@ -41,8 +41,6 @@ if (!($dashgrt = prefixed_cookie('dashgrt')) or !$dashgrt) {
         height: 90px !important;
         object-fit: cover;
     }
-
-
 </style>
 <?php $this->endSection() ?>
 
@@ -66,8 +64,10 @@ if (!($dashgrt = prefixed_cookie('dashgrt')) or !$dashgrt) {
     </div>
 
 
+    <?php if ($canRefer): ?>
+        <div class="col-12" id="refer_link_stack"></div>
+    <?php endif; ?>
 
-    <div class="col-12" id="refer_link_stack"></div>
 
     <div class="col-12">
         <div class="row  px-0" id="widgets_stack"></div>
@@ -75,12 +75,16 @@ if (!($dashgrt = prefixed_cookie('dashgrt')) or !$dashgrt) {
 
     <div class="col-12" id="earning_chart_stack"></div>
 
-    <?php if(false): ?>
+    <div class="col-12">
+        <?= view('user_dashboard/home/reward.php') ?>
+    </div>
+
+    <?php if (!!false): ?>
         <div class="row">
             <div class="col-md-6">
                 <?= view('user_dashboard/home/daily_deposit_bonanza.php') ?>
             </div>
-    
+
             <div class="col-md-6">
                 <?= view('user_dashboard/home/booster_club_income.php') ?>
             </div>
@@ -210,10 +214,6 @@ if (!($dashgrt = prefixed_cookie('dashgrt')) or !$dashgrt) {
                 ...widgetOptions,
                 defaultIcon: 'fa-solid fa-users',
                 widgets: [{
-                    component: '0',
-                    label: 'Team ROI',
-                },
-                {
                     component: 'direct_team',
                     label: 'Direct Team',
                 },
@@ -237,16 +237,6 @@ if (!($dashgrt = prefixed_cookie('dashgrt')) or !$dashgrt) {
                     component: 'total_team_investment',
                     label: 'Total Team Business',
                     icon: currencySymbol
-                },
-                {
-                    component: '0',
-                    label: 'Reaward',
-                    icon: currencySymbol
-                },
-                {
-                    component: '0',
-                    label: 'Salary',
-                    icon: currencySymbol
                 }
 
                 ],
@@ -259,7 +249,6 @@ if (!($dashgrt = prefixed_cookie('dashgrt')) or !$dashgrt) {
 
             // earning chart
             Dashboard.setupEarningChartWidget();
-
 
             // earning chart
             Dashboard.setupEarningChartWidget();

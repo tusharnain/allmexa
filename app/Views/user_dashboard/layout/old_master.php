@@ -138,7 +138,7 @@ $userName = user('full_name');
     <script src="<?= base_url('twebsol/plugins/tippy/tippy.min.js') ?>"></script>
 
     <script src="<?= base_url('twebsol/plugins/jquery-validator/jquery.validate.extend.js') ?>"></script>
-    <script src="<?= base_url('twebsol/user/dashboard.js') ?>?v=1.5"></script>
+    <script src="<?= base_url('twebsol/user/dashboard.js') ?>?v=2"></script>
     <script>
         const sidebar = <?= $sidebarMenuJson ?>;
         const dashboardUrl = "<?= $dashboardUrl ?>";

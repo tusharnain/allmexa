@@ -123,13 +123,19 @@ class Register extends ParentController
 
     public function referral(string $refer_user_id)
     {
-        if (!($user = $this->userModel->getUserFromUserId($refer_user_id, ['full_name'])) or !isset($user->full_name))
+        if (!($user = $this->userModel->getUserFromUserId($refer_user_id, ['id', 'status', 'full_name'])) or !isset($user->full_name))
             return show_404();
+
+        if (!$user->status) {
+            show_404();
+            return;
+        }
 
 
         $this->refer = new \stdClass();
         $this->refer->user_id = $refer_user_id;
         $this->refer->name = $user->full_name;
+
 
         return $this->index();
     }

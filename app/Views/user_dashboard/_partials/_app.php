@@ -147,7 +147,7 @@ $theme = request()->getCookie('theme-preferences');
 
 
     <!-- dashboard scripts -->
-    <script src="<?= base_url('twebsol/user/dashboard.js') ?>?v=1.5"></script>
+    <script src="<?= base_url('twebsol/user/dashboard.js') ?>?v=2"></script>
     <script>
         const sidebar = <?= $sidebarMenuJson ?>;
 

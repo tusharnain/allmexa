@@ -186,13 +186,6 @@ class UserModel extends ParentModel
     {
         return $this->select($columns)->where(['sponsor_id' => $user_id_pk, 'status' => true])->get()->getResultObject();
     }
-    public function getDirectFinalActiveUsers(int $user_id_pk, array $columns = ['*']): array
-    {
-        $columnStr = array_map(fn($col) => "users.$col", $columns);
-        return $this->select($columnStr)->join('wallets', 'users.id = wallets.user_id', 'JOIN')
-            ->where('users.sponsor_id', $user_id_pk)
-            ->where('COALESCE(investment, 0) >=', 10000)->get()->getResult();
-    }
     public function getDirectActivePaidUsersCount(int $user_id_pk, $minimumInvestment = 1): int|float
     {
         return $this->selectCount('users.id')->join('wallets', 'users.id = wallets.user_id', 'JOIN')
@@ -440,12 +433,12 @@ class UserModel extends ParentModel
 
 
         $directTeamBusiness = $this->getTotalDirectBusiness($user_id_pk);
-        
-        if($directTeamBusiness >= 1500) {
+
+        if ($directTeamBusiness >= 700) {
             return $MAX_LEVEL_OPEN;
         }
-        
-        
+
+
         $count = $this->getDirectActivePaidUsersCount($user_id_pk, 50);
 
         return min($count, $MAX_LEVEL_OPEN);
@@ -689,6 +682,7 @@ class UserModel extends ParentModel
 
         //labels
         $sponsorIdLabel = label('sponsor_id');
+        $sponsorLabel = label('sponsor');
 
         if ($isFirstUser)
             unset($data['sponsor_id']);
@@ -717,10 +711,14 @@ class UserModel extends ParentModel
         if ($isFirstUser) {
             $sponsor_id_pk = null;
         } else {
-            $sponsor = $this->getUserFromUserId($data['sponsor_id'], ['id']);
+            $sponsor = $this->getUserFromUserId($data['sponsor_id'], ['id', 'status']);
 
             if (!$sponsor or !$sponsor->id)
                 return ['validationErrors' => ['sponsor_id' => "$sponsorIdLabel doesn't exits."]];
+
+            if (!$sponsor->status) {
+                return ['validationErrors' => ['sponsor_id' => "$sponsorLabel is not active."]];
+            }
 
             $sponsor_id_pk = $sponsor->id;
         }
@@ -1352,5 +1350,12 @@ class UserModel extends ParentModel
 
         if (file_exists($filepath))
             unlink($filepath);
+    }
+
+    public static function canRefer(int $userIdPk): bool
+    {
+        $user = get_user($userIdPk, ['id', 'status']);
+
+        return !!$user->status;
     }
 }

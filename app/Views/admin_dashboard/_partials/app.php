@@ -142,7 +142,7 @@ $currentYear = date('Y');
 
 
     <!-- placed right, no displacement required -->
-    <script src="<?= base_url('twebsol/admin/dashboard.js') ?>?v=1"></script>
+    <script src="<?= base_url('twebsol/admin/dashboard.js') ?>?v=2"></script>
     <script>
         const sidebar = <?= $sidebarMenuJson ?>;
 

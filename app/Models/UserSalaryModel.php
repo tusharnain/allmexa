@@ -9,7 +9,7 @@ class UserSalaryModel extends ParentModel
     protected $useAutoIncrement = true;
     protected $returnType = 'object';
     protected $protectFields = true;
-    protected $allowedFields = ['user_id', 'structure_type', 'structure_id', 'income', 'freq', 'given_times', 'disabled_at', 'created_at', 'updated_at'];
+    protected $allowedFields = ['user_id', 'structure_type', 'structure_id', 'income', 'freq', 'given_times', 'last_credited_at', 'disabled_at', 'created_at', 'updated_at'];
 
     // Dates
     protected $useTimestamps = true;

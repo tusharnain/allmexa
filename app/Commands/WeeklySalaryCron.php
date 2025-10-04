@@ -3,12 +3,11 @@
 namespace App\Commands;
 
 use App\Actions\Jobs\DirectAndBusinessBasedSalary;
-use App\Actions\Jobs\TeamBusinessReward;
 use App\Services\UserIncomeService;
 use CodeIgniter\CLI\BaseCommand;
 
 
-class DailyCron extends BaseCommand
+class WeeklySalaryCron extends BaseCommand
 {
     /**
      * The Command's Group
@@ -22,7 +21,7 @@ class DailyCron extends BaseCommand
      *
      * @var string
      */
-    protected $name = 'cron:daily';
+    protected $name = 'cron:weekly-salary';
 
     /**
      * The Command's Description
@@ -60,36 +59,13 @@ class DailyCron extends BaseCommand
     public function run(array $params)
     {
 
-        // $isWeekDay = date('N') >= 1 && date('N') <= 5;
-
-        // if (!$isWeekDay) {
-        //     echo "Can't run on weekend!" . PHP_EOL;
-        //     return;
-        // }
-
-
         $db = db_connect();
 
         $db->transBegin();
 
         try {
 
-            (new UserIncomeService)->distributeInvestmentROI();
-
-            (new DirectAndBusinessBasedSalary)->scan();
-
-            (new TeamBusinessReward)->run();
-
-            (new UserIncomeService)->giveCompoundRoi();
-
-            // cancelled --------
-
-            // (new DailyTopupBonus)->distribute();
-
-            // (new BoosterClubIncome)->distribute();
-
-
-
+            (new DirectAndBusinessBasedSalary)->distribute(); // every 15 days
 
             $db->transCommit();
 

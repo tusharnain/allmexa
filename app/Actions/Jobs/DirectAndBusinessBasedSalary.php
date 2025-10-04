@@ -98,9 +98,19 @@ class DirectAndBusinessBasedSalary
             ->get()
             ->getResult();
 
-
         foreach ($activeSalaries as $salary) {
+            // Determine reference date: last_credited_at or created_at
+            $referenceDate = $salary->last_credited_at ?? $salary->created_at;
 
+            // Calculate days difference
+            $daysPassed = (time() - strtotime($referenceDate)) / 86400;
+
+            // Skip if less than 15 days passed
+            if ($daysPassed < 15) {
+                continue;
+            }
+
+            // Deposit the income
             model(WalletModel::class)->deposit(
                 user_id_pk: $salary->user_id_pk,
                 amount: $salary->income,
@@ -112,14 +122,20 @@ class DirectAndBusinessBasedSalary
                 ]
             );
 
+            // Add income stat
             addIncomeStat($salary->user_id_pk, $salary->income, 'weekly_salary');
 
+            // Update record
+            $givenTimes = $salary->given_times + 1;
+
             model(UserSalaryModel::class)->update($salary->id, [
-                'given_times' => ++$salary->given_times,
-                'disabled_at' => $salary->given_times == $salary->freq ? date('Y-m-d H:i:s') : null
+                'given_times' => $givenTimes,
+                'last_credited_at' => date('Y-m-d H:i:s'),
+                'disabled_at' => $givenTimes == $salary->freq ? date('Y-m-d H:i:s') : null,
             ]);
         }
     }
+
 
     private function users()
     {

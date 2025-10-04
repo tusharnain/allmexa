@@ -22,6 +22,7 @@ final class WalletTransactionCategory
     const WEEKLY_SALARY = 'weekly_salary';
     const DAILY_TOPUP_BONANZA = 'daily_topup_bonanza';
     const BOOSTER_CLUB_INCOME = 'booster_club_income';
+    const TEAM_BUSINESS_REWARD = 'team_business_reward';
 
     public static function getArray(): array
     {

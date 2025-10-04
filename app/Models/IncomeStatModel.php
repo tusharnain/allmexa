@@ -11,7 +11,7 @@ class IncomeStatModel extends ParentModel
     protected $useAutoIncrement = true;
     protected $returnType = 'object';
     protected $protectFields = true;
-    protected $allowedFields = ['user_id', 'level_income', 'roi', 'roi_level_income', 'weekly_salary', 'daily_topup_bonanza', 'booster_club_income', 'created_at', 'updated_at'];
+    protected $allowedFields = ['user_id', 'level_income', 'roi', 'roi_level_income', 'weekly_salary', 'team_business_reward', 'daily_topup_bonanza', 'booster_club_income', 'created_at', 'updated_at'];
 
     // Dates
     protected $useTimestamps = true;
@@ -24,7 +24,8 @@ class IncomeStatModel extends ParentModel
         2 => 'roi',
         3 => 'roi_level_income',
         4 => 'weekly_salary',
-        5 => 'daily_topup_bonanza'
+        5 => 'team_business_reward',
+        6 => 'daily_topup_bonanza'
     ];
 
 

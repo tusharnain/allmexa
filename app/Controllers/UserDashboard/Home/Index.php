@@ -3,8 +3,6 @@
 namespace App\Controllers\UserDashboard\Home;
 
 use App\Controllers\ParentController;
-use App\Enums\UserIncomeStats;
-use App\Models\RoiModel;
 use App\Models\UserIncomeModel;
 use App\Models\UserModel;
 use App\Models\UserRewardsModel;
@@ -43,8 +41,6 @@ class Index extends ParentController
         $userIdPk = user('id');
         $data = null;
 
-        $totalTeamInvestment = $this->userModel->getTeamInvestment($userIdPk, upto_level: 999999999);
-
 
         switch ($component) {
             case 'direct_team': {
@@ -68,6 +64,7 @@ class Index extends ParentController
                 break;
             }
             case 'total_team_investment': {
+                $totalTeamInvestment = $this->userModel->getTeamInvestment($userIdPk, upto_level: 999999999);
                 $data = f_amount(_c($totalTeamInvestment), shortForm: true, isUser: true);
                 break;
             }
@@ -254,10 +251,6 @@ class Index extends ParentController
         $walletsWithLabel = WalletService::getWalletBalanceWithWalletLabel($wallets, fAmount: true, walletSlug: true);
         $walletUrl = route('user.wallet.transactions', '___');
 
-        // income stats
-        $incomeStats = $this->userIncomeModel->getUserIncomeStatsFromUserIdPk(user_id_pk: $user_id_pk);
-
-        $totalInvestment = $wallets?->investment ?? 0;
 
         $data = [];
 
@@ -289,6 +282,21 @@ class Index extends ParentController
                 'value' => f_amount($stat?->roi ?? 0),
                 'icon' => 'fa-solid fa-dollar'
             ],
+            [
+                'title' => 'ROI Level Income',
+                'value' => f_amount($stat?->roi_level_income ?? 0),
+                'icon' => 'fa-solid fa-dollar'
+            ],
+            [
+                'title' => 'Salary',
+                'value' => f_amount($stat?->weekly_salary ?? 0),
+                'icon' => 'fa-solid fa-dollar'
+            ],
+            [
+                'title' => 'Team Business Reward',
+                'value' => f_amount($stat?->team_business_reward ?? 0),
+                'icon' => 'fa-solid fa-dollar'
+            ]
             // [
             //     'title' => 'Total Profit Earning',
             //     'value' => f_amount(_c($incomeStats->{UserIncomeStats::TOTAL_EARNING}), shortForm: true, symbol: '$')
@@ -348,6 +356,8 @@ class Index extends ParentController
 
         // direct count check
         $this->vd['hasDirectUser'] = $hasDirectUser = $this->userModel->hasDirectUser(user_id_pk: $user->id);
+
+        $this->vd['canRefer'] = UserModel::canRefer($user->id);
 
 
         return view('user_dashboard/home/index', $this->vd);

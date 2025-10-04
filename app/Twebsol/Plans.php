@@ -9,7 +9,7 @@ final class Plans
 {
     //! The Index must be unique
     //! Make sure plan title length must not exceed 200 characters
-    public const array SPONSOR_LEVEL_INCOMES = [5, 2, 1];
+    public const array SPONSOR_LEVEL_INCOMES = [5];
 
     public const array DEFAULT_ROI_LEVEL_INCOME = [20, 10, 10, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5,];
 
@@ -32,17 +32,32 @@ final class Plans
     ];
 
 
+    public const array REWARD_RANK = [
+        1 => 'Bronze Director',
+        2 => 'Silver Director',
+        3 => 'Gold Director',
+        4 => 'Diamond Director',
+        5 => 'Platinum Director',
+        6 => 'Emerald Director',
+        7 => 'Sapphire Director',
+        8 => 'Topaz Director',
+        9 => 'Crown Director',
+        10 => 'Brand Ambassador'
+    ];
+
+
     // Reward Id => Reward
     public const array REWARD_STRUCTURE = [
-        1 => ['rank' => 'Sales Manager', 'team_business' => 2_500, 'salary_reward' => 1],
-        2 => ['rank' => 'Sr. Sales Manager', 'team_business' => 5_000, 'salary_reward' => 2],
-        3 => ['rank' => 'Executive', 'team_business' => 10_000, 'salary_reward' => 3],
-        4 => ['rank' => 'Executive Manager', 'team_business' => 25_000, 'salary_reward' => 4],
-        5 => ['rank' => 'Sr. Manager', 'team_business' => 50_000, 'salary_reward' => 5],
-        6 => ['rank' => 'Asst. General Manager', 'team_business' => 1_50_000, 'salary_reward' => 6],
-        7 => ['rank' => 'Chairman Director', 'team_business' => 3_50_000, 'salary_reward' => 7],
-        8 => ['rank' => 'Vice President', 'team_business' => 10_00_000, 'salary_reward' => 8],
-        9 => ['rank' => 'Ambassador', 'team_business' => 25_00_000, 'salary_reward' => 9]
+        1 => ['reward_rank_id' => 1, 'team_business' => 2_000, 'income' => 50],
+        2 => ['reward_rank_id' => 2, 'team_business' => 5_000, 'income' => 100],
+        3 => ['reward_rank_id' => 3, 'team_business' => 10_000, 'income' => 250],
+        4 => ['reward_rank_id' => 4, 'team_business' => 30_000, 'income' => 500],
+        5 => ['reward_rank_id' => 5, 'team_business' => 60_000, 'income' => 1_000],
+        6 => ['reward_rank_id' => 6, 'team_business' => 1_00_000, 'income' => 2_500],
+        7 => ['reward_rank_id' => 7, 'team_business' => 3_00_000, 'income' => 5_000],
+        8 => ['reward_rank_id' => 8, 'team_business' => 6_00_000, 'income' => 10_000],
+        9 => ['reward_rank_id' => 9, 'team_business' => 10_00_000, 'income' => 25_000],
+        10 => ['reward_rank_id' => 10, 'team_business' => 30_00_000, 'income' => 50_000]
     ];
 
     public const array DIRECT_AND_BUSINESS_BASED_SALARY_STRUCTURE = [
@@ -56,23 +71,39 @@ final class Plans
 
     public static function getDailyRoiPercentByUser(object $user, string|float $balance): float
     {
-        
-        $directBusiness = user_model()->getTotalDirectBusiness($user->id);
-        
-        if($directBusiness >= 2000) {
-            return 3.0;
+        $directTeamCount = user_model()->getDirectActiveUsersFromUserIdPk($user->id);
+        $balanceStr = (string) $balance;
+
+        // Check if user qualifies based on direct team count and business
+        if ($directTeamCount >= 2) {
+            $directBusiness = user_model()->getTotalDirectBusiness($user->id);
+            $requiredBusiness = bcmul('2', $balanceStr, 8); // 2 * balance, high precision
+
+            if (bccomp((string) $directBusiness, $requiredBusiness, 8) >= 0) {
+                return 2.0;
+            }
         }
-        
-        if($directBusiness >= 1000) {
+
+        // Check if balance > 1000
+        if (bccomp($balanceStr, '1000', 8) === 1) {
             return 2.0;
         }
-        
-        return 1.0;
 
+        // Default ROI
+        return 1.0;
     }
 
     public static function getDailyCompoundRoiPercentByUser(object $user, string|float $balance): float
     {
         return 1.0;
+    }
+
+    public static function getRewardRankName(string $rewardType, int $rewardId): ?string
+    {
+        if ($rewardType === 'team_business_reward') {
+            return self::REWARD_RANK[self::REWARD_STRUCTURE[$rewardId]['reward_rank_id']] ?? null;
+        }
+
+        return null;
     }
 }
