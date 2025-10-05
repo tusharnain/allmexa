@@ -72,6 +72,12 @@ class UserIncomeService
             if (!$sponsor->status)
                 $eligible = false;
 
+            $openLevels = model(UserModel::class)->getUserOpenLevel($sponsor->id);
+
+            if ($openLevels < $currentLevel) {
+                $eligible = false;
+            }
+
             if ($eligible) {
 
                 $amount = 0;
@@ -165,6 +171,12 @@ class UserIncomeService
             ) {
 
                 $eligible = true;
+
+                $openLevels = model(UserModel::class)->getUserOpenLevel($sponsor->id);
+
+                if ($openLevels < $currentLevel) {
+                    $eligible = false;
+                }
 
                 if ($eligible) {
 
